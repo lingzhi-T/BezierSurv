@@ -60,8 +60,9 @@ python main_bezier.py \
   --use_align_loss \
   --use_sim_loss \
   --use_mean_in_testing \
-  --test_all_modalities
+```
+### 2. Batch Experiment (Shell Script)
 
+```bash
 bash scripts/brca_geno_mil_abmil_chaocanshu_n_ctrl__nclass_8_0731.sh
-
-
+```
