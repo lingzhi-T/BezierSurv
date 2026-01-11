@@ -1,2 +1,67 @@
-BezierSurv: Bezier-Guided Distributional Representation for Multimodal Survival Analysis
-The code will be made public later.
+# BezierSurv: Bezier-Based Distribution Representation and Multimodal Self-Paced Learning for Survival Analysis
+
+> **Multimodal Survival Analysis on WSI + Genomics with Bezier-guided Prototype Distribution + Information Bottleneck + Self-Paced Learning**
+
+This repository contains the official PyTorch implementation of **BezierSurv**, a new multimodal survival analysis framework based on:
+- **Bezier-guided GMM prototype distributions**
+
+
+---
+
+## 🔥 Key Ideas
+
+BezierSurv introduces a multimodal survival representation pipeline with the following features:
+
+### **1. Bezier-GMM Prototype Distribution**
+- Learn **continuous risk evolution** across survival intervals
+- Enforces smooth transitions between prototypes
+- Supports `memory_bank`, `single_gaussian`, `gmm`, `bezier_gmm`
+
+### **2. Multimodal Information Bottleneck (IB)**
+- IB applied to **pathology**, **genomics**, and **fusion**
+- Filters modality-specific redundancy
+- Reduces noise & improves censoring robustness
+
+### **3. Cross-modal Alignment**
+- KL & symmetric alignment loss
+- Encourages prototype-shared semantics
+
+### **4. Censor-aware Self-Paced Learning**
+- Handles heavy censoring
+- Progressive curriculum from confident samples
+
+### **5. Unified Discrete-Time Hazard Survival Objective**
+- Compatible with standard NLL survival losses
+
+---
+
+## Usage
+
+### 1. Single Experiment (Python)
+
+Training BezierSurv on TCGA-BRCA:
+
+```bash
+python main_bezier.py \
+  --study tcga_brca \
+  --task survival \
+  --modality BezierSurv \
+  --n_classes 8 \
+  --n_ctrl_points 8 \
+  --fusion concat \
+  --batch_size 1 \
+  --lr 1e-4 \
+  --mil_model_type ABMIL \
+  --geno_mlp_type SNN \
+  --use_self_paced \
+  --spl_on_censored_only \
+  --use_ib_path \
+  --use_ib_geno \
+  --use_align_loss \
+  --use_sim_loss \
+  --use_mean_in_testing \
+  --test_all_modalities
+
+bash scripts/brca_geno_mil_abmil_chaocanshu_n_ctrl__nclass_8_0731.sh
+
+
